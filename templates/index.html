@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{%block head%}
+<title> Task Master </title>
+<link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+{%endblock%}
+{%block body%}
+
+<div class="container">
+    <h1 align="center">Task Master</h1>
+    <div class="content">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th>Tasks</th>
+                <th>Created Date</th>
+                <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            <tr id="tr-{{task.id}}">
+                <td>{{task.content}}</td>
+                <td>{{task.date_created.date()}}</td>
+                <td>
+                    <button class="btn btn-danger"><a href="/deleteTask/{{task.id}}">Delete</a></button>
+                    <button id="update-{{task.id}}" class="update-button btn btn-primary">Update</button>
+                </td>
+            </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+    <form action="/" method="POST" onsubmit="return validateForm()" id="add-task-form">
+        <div class="form-group">
+            <label >Task Content</label>
+            <input type="text" class="form-control" name="content" id="content" autocomplete="off" required>
+<!--            <label id="content-validation-message" class="form-validation-message"></label>-->
+        </div>
+        <button type="submit" class="btn btn-primary">Add Task</button>
+    </form>
+    <div id="update-task-container">
+        <h4 align="center">Update Task</h4>
+        <div class ="form-group">
+            <label >Task Content</label>
+            <input type="text" class="form-control" name="content" id="update-content" autocomplete="off" required>
+<!--            <label id="content-validation-message" class="form-validation-message"></label>-->
+        </div>
+        <input type="hidden" id ="update-hidden-input-data-holder" taskId="" taskContent="" taskCreatedDate="">
+        <div class="d-flex align-items-center">
+            <button id="update-task-done-button" class="btn btn-primary">Done</button>
+            <div>
+                <div class="spinner-border" id="update-spinner" style="display:none;"></div>
+            </div>
+        </div>
+        
+    </div>
+    </div>
+</div>
+<script src="{{url_for('static', filename='js/main.js')}}"></script>
+{%endblock%}

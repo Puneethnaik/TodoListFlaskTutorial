@@ -1,0 +1,12 @@
+body {
+    margin:0;
+    padding:0;
+    font-family:sans-serif;
+}
+#form-validation-message {
+    display:none;
+}
+/* hidden by default */
+#update-task-container {
+    display: none;
+}
